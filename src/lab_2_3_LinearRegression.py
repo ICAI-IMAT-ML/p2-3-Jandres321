@@ -1,6 +1,7 @@
 # Import here whatever you may need
 import numpy as np
 import seaborn as sns
+from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
 
@@ -124,15 +125,13 @@ def evaluate_regression(y_true, y_pred):
 
 def sklearn_comparison(x, y, linreg):
     ### Compare your model with sklearn linear regression model
-    # TODO : Import Linear regression from sklearn
 
     # Assuming your data is stored in x and y
-    # TODO : Reshape x to be a 2D array, as scikit-learn expects 2D inputs for the features
-    x_reshaped = None
+    # Reshape x to be a 2D array, as scikit-learn expects 2D inputs for the features
+    x_reshaped = x.reshape(-1, 1)
 
     # Create and train the scikit-learn model
-    # TODO : Train the LinearRegression model
-    sklearn_model = None
+    sklearn_model = LinearRegression()
     sklearn_model.fit(x_reshaped, y)
 
     # Now, you can compare coefficients and intercepts between your model and scikit-learn's model
