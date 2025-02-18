@@ -106,16 +106,15 @@ def evaluate_regression(y_true, y_pred):
         dict: A dictionary containing the R^2, RMSE, and MAE values.
     """
     # R^2 Score
-    # TODO: Calculate R^2
-    r_squared = None
+    ss_res = np.sum((y_true - y_pred) * (y_true - y_pred))
+    ss_tot = np.sum((y_true - np.mean(y_true)) * (y_true - np.mean(y_true)))
+    r_squared = 1 - (ss_res / ss_tot)
 
     # Root Mean Squared Error
-    # TODO: Calculate RMSE
-    rmse = None
+    rmse = np.sqrt(np.mean((y_true - y_pred) ** 2))
 
     # Mean Absolute Error
-    # TODO: Calculate MAE
-    mae = None
+    mae = np.mean(np.abs(y_true - y_pred))
 
     return {"R2": r_squared, "RMSE": rmse, "MAE": mae}
 
