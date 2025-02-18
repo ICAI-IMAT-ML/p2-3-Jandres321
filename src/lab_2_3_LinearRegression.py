@@ -33,11 +33,16 @@ class LinearRegressor:
             None: Modifies the model's coefficients and intercept in-place.
         """
         if np.ndim(X) > 1:
-            X = X.reshape(1, -1)
+            X = X.reshape(-1)
 
-        # TODO: Train linear regression model with only one coefficient
-        self.coefficients = None
-        self.intercept = None
+        # Add a column of ones to X to account for the intercept
+        X_b = np.c_[np.ones((X.shape[0], 1)), X]
+
+        # Calculate the best fit line using the normal equation
+        theta_best = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y)
+
+        self.intercept = theta_best[0]
+        self.coefficients = theta_best[1:]
 
     # This part of the model you will only need for the last part of the notebook
     def fit_multiple(self, X, y):
