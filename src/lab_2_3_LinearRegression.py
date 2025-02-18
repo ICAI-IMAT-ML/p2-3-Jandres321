@@ -59,9 +59,14 @@ class LinearRegressor:
         Returns:
             None: Modifies the model's coefficients and intercept in-place.
         """
-        # TODO: Train linear regression model with multiple coefficients
-        self.intercept = None
-        self.coefficients = None
+        # Add a column of ones to X to account for the intercept
+        X_b = np.c_[np.ones((X.shape[0], 1)), X]
+
+        # Calculate the best fit line using the normal equation
+        theta_best = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y)
+
+        self.intercept = theta_best[0]
+        self.coefficients = theta_best[1:]
 
     def predict(self, X):
         """
@@ -80,11 +85,12 @@ class LinearRegressor:
             raise ValueError("Model is not yet fitted")
 
         if np.ndim(X) == 1:
-            # TODO: Predict when X is only one variable
-            predictions = None
+            # Predict when X is only one variable
+            predictions = self.intercept + self.coefficients[0] * X
         else:
-            # TODO: Predict when X is more than one variable
-            predictions = None
+            # Predict when X is more than one variable
+            X_b = np.c_[np.ones((X.shape[0], 1)), X]
+            predictions = X_b.dot(np.r_[self.intercept, self.coefficients])
         return predictions
 
 
